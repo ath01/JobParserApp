@@ -64,7 +64,7 @@ public class Parser {
                     StringBuilder sb = new StringBuilder("http://rabota66.ru");
                     sb.append(categoryLink);
                     categoryLink = sb.toString();
-                    subCategoryMap.put(categoryLink,categoryName);
+                    subCategoryMap.put(categoryLink, categoryName);
                 }
             }
         } catch (IOException e) {
@@ -90,6 +90,9 @@ public class Parser {
                 content = doc.getElementById("vacancy-list");
                 category = content.select("a");
                 String linkToNextPage = null;
+                /* Проходим по списку подкатегорий, ищем ссылки на дополнительные страницы, если они существуют, добавляем во
+            временный список след.страниц
+             */
                 try {
                     nextPage = doc.select("span[class=pga-forward-link]").first();
                     nextPagecat = nextPage.select("a");
@@ -97,12 +100,14 @@ public class Parser {
                 } catch (Exception e) {
                     /*NOP*/
                 }
-                if (linkToNextPage!=null) {
+                if (linkToNextPage != null) {
                     StringBuilder sb = new StringBuilder("http://rabota66.ru");
                     sb.append(linkToNextPage);
                     linkToNextPage = sb.toString();
                     nextPagesLinks.add(linkToNextPage);
                 }
+
+                /* проходим по списку*/
                 for (int i = 0; i < category.size(); i++) {
                     String categoryLink = category.get(i).attr("href");
                     String categoryName = category.get(i).text();
@@ -118,6 +123,7 @@ public class Parser {
                     break;
                 }
             }
+
             for (String page : nextPagesLinks) {
                 if (nextPagesLinks.isEmpty()) {
                     break;
@@ -141,6 +147,64 @@ public class Parser {
         }
         return vacancyMap;
     }
+
+    public static Map<String, String> getDataForDBbyOneURL(String url) {
+        Map<String, String> getDataForDBbyOneURL = new HashMap<String, String>();
+        Document doc;
+        Element vacancy;
+        String vacancyString;
+        Element salary;
+        String salaryString;
+        Element experience;
+        String experienceString;
+        Element education;
+        String educationString;
+        Element employer;
+        String employerString;
+        Element responsibilities;
+        String responsibilitiesString;
+
+        try {
+            doc = Jsoup.connect(url).get();
+
+            vacancy = doc.select("div.title-").first();
+            vacancyString = vacancy.text().trim();
+
+            experience = doc.select("b.salary-").first();
+            experienceString = experience.text();
+
+            salary = doc.select("div.vvloa-box").first();
+            salaryString = salary.select("dd").first().text();
+
+            education = doc.select("div.vvloa-box").first();
+            educationString = education.select("dd").last().text();
+
+            employer = doc.select("div.employer-").first();
+            employerString = employer.select("a").text();
+            String res = employerString;
+
+
+            /*getDataForDBbyOneURL.put("vacancy", vacancyString);
+            getDataForDBbyOneURL.put("salary", salaryString);
+            getDataForDBbyOneURL.put("experience", experienceString);
+            getDataForDBbyOneURL.put("education", educationString);
+            getDataForDBbyOneURL.put("employer", employerString);
+            getDataForDBbyOneURL.put("responsibilities", responsibilitiesString);*/
+        } catch (IOException e) {
+            /*NOP*/
+        }
+
+
+        return getDataForDBbyOneURL;
+    }
+
+    public static void main(String[] args) {
+        String url = "http://www.rabota66.ru/vacancy/256509";
+        Map<String, String> getDataForDBbyOneURL = getDataForDBbyOneURL(url);
+
+
+    }
+
 
 
 }
