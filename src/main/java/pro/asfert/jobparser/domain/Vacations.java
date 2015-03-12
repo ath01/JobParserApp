@@ -38,8 +38,8 @@ public class Vacations {
     @Column (name = "employer")
     private String employer;
 
-    @Column (name = "responsibilities")
-    private String responsibilities;
+    @Column (name = "details")
+    private String details;
 
 
 

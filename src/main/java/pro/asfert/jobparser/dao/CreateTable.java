@@ -13,7 +13,7 @@ public class CreateTable {
             "  `experience` int(100) default NULL," +
             "  `education` varchar(20) default NULL," +
             "  `employer` varchar(50) default NULL," +
-            "  `responsibilities` varchar(150) default NULL," +
+            "  `details` varchar(10000) default NULL," +
             "  PRIMARY KEY  (`id`)" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 

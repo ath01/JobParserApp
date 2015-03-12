@@ -3,6 +3,7 @@ package pro.asfert.jobparser.domain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -161,8 +162,8 @@ public class Parser {
         String educationString;
         Element employer;
         String employerString;
-        Element responsibilities;
-        String responsibilitiesString;
+        Element details;
+        String detailsString = "";
 
         try {
             doc = Jsoup.connect(url).get();
@@ -181,15 +182,20 @@ public class Parser {
 
             employer = doc.select("div.employer-").first();
             employerString = employer.select("a").text();
-            String res = employerString;
 
+            details = doc.select("div.details-").first();
+            Elements br = details.select("br");
+            detailsString+=details.select("h2").first().nextSibling().toString();
+            for (int i = 0; i < br.size(); i++) {
+                        detailsString += br.get(i).nextSibling().toString();
+            }
 
-            /*getDataForDBbyOneURL.put("vacancy", vacancyString);
+            getDataForDBbyOneURL.put("vacancy", vacancyString);
             getDataForDBbyOneURL.put("salary", salaryString);
             getDataForDBbyOneURL.put("experience", experienceString);
             getDataForDBbyOneURL.put("education", educationString);
             getDataForDBbyOneURL.put("employer", employerString);
-            getDataForDBbyOneURL.put("responsibilities", responsibilitiesString);*/
+            getDataForDBbyOneURL.put("details ", detailsString);
         } catch (IOException e) {
             /*NOP*/
         }
@@ -198,12 +204,10 @@ public class Parser {
         return getDataForDBbyOneURL;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         String url = "http://www.rabota66.ru/vacancy/256509";
         Map<String, String> getDataForDBbyOneURL = getDataForDBbyOneURL(url);
-
-
-    }
+    }*/
 
 
 
