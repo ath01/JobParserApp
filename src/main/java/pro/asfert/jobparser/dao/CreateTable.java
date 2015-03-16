@@ -8,12 +8,13 @@ public class CreateTable {
 
     private final static String createTableQuery = "CREATE TABLE `vacations` (" +
             "  `id` int(11) NOT NULL auto_increment," +
-            "  `vacancy` varchar(50) default NULL," +
-            "  `salary` int(100) default NULL," +
-            "  `experience` int(100) default NULL," +
+            "  `vacancy` varchar(500) default NULL," +
+            "  `salary` varchar(100) default NULL," +
+            "  `experience` varchar(100) default NULL," +
             "  `education` varchar(20) default NULL," +
             "  `employer` varchar(50) default NULL," +
             "  `details` varchar(10000) default NULL," +
+            "  `hr` varchar(1000) default NULL," +
             "  PRIMARY KEY  (`id`)" +
             ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 

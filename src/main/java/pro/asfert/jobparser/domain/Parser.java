@@ -1,14 +1,14 @@
 package pro.asfert.jobparser.domain;
 
+import org.jsoup.Connection.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
+
 
 /**
  * Created by darkwawe on 06.03.2015.
@@ -120,7 +120,7 @@ public class Parser {
                     }
                 }
                 k++;
-                if (k == 2) {
+                if (k == 1) {
                     break;
                 }
             }
@@ -149,9 +149,11 @@ public class Parser {
         return vacancyMap;
     }
 
+    /* СТАТИЧЕСКИЙ МЕТОД, ПОДГОТАВЛИВАЮЩИЙ КАРТУ ДЛЯ ПОЛЕЙ БАЗЫ ДАННЫХ СО ЗНАЧЕНИЯМИ ПО СТРОКЕ URL*/
     public static Map<String, String> getDataForDBbyOneURL(String url) {
         Map<String, String> getDataForDBbyOneURL = new HashMap<String, String>();
         Document doc;
+        Document doc2;
         Element vacancy;
         String vacancyString;
         Element salary;
@@ -164,18 +166,40 @@ public class Parser {
         String employerString;
         Element details;
         String detailsString = "";
+        Element hr;
+        String hrString;
+
+        String username = "spvelichko@mail.ru";
+        String password = "rfcgth18";
 
         try {
-            doc = Jsoup.connect(url).get();
+            /*doc = Jsoup
+                    .connect(url)
+                    .header("Authorization", "Basic " + base64login)
+                    .get();*/
+
+            Response res = Jsoup.connect("http://www.rabota66.ru/login")
+                    .data("login", username, "password", password)
+                    .method(Method.POST)
+                    .execute();
+
+            doc2 = res.parse();
+            String sessionId = res.cookie("c98ef47ea9405440a4c74543704ba279");
+            String abc = sessionId;
+            Map<String, String> loginCookies = res.cookies();
+
+            doc = Jsoup.connect(url)
+                    .cookies(loginCookies)
+                    .get();
 
             vacancy = doc.select("div.title-").first();
             vacancyString = vacancy.text().trim();
 
-            experience = doc.select("b.salary-").first();
-            experienceString = experience.text();
+            salary = doc.select("b.salary-").first();
+            salaryString = salary.text();
 
-            salary = doc.select("div.vvloa-box").first();
-            salaryString = salary.select("dd").first().text();
+            experience = doc.select("div.vvloa-box").first();
+            experienceString = experience.select("dd").first().text();
 
             education = doc.select("div.vvloa-box").first();
             educationString = education.select("dd").last().text();
@@ -189,13 +213,16 @@ public class Parser {
             for (int i = 0; i < br.size(); i++) {
                         detailsString += br.get(i).nextSibling().toString();
             }
+            hr = doc.select("div.vvloa-box").first().nextElementSibling();
+            hrString = hr.text();
 
-            getDataForDBbyOneURL.put("vacancy", vacancyString);
-            getDataForDBbyOneURL.put("salary", salaryString);
-            getDataForDBbyOneURL.put("experience", experienceString);
-            getDataForDBbyOneURL.put("education", educationString);
-            getDataForDBbyOneURL.put("employer", employerString);
-            getDataForDBbyOneURL.put("details ", detailsString);
+            getDataForDBbyOneURL.put("vacancy", vacancyString.trim());
+            getDataForDBbyOneURL.put("salary", salaryString.trim());
+            getDataForDBbyOneURL.put("experience", experienceString.trim());
+            getDataForDBbyOneURL.put("education", educationString.trim());
+            getDataForDBbyOneURL.put("employer", employerString.trim());
+            getDataForDBbyOneURL.put("details", detailsString.trim());
+            getDataForDBbyOneURL.put("hr", hrString.trim());
         } catch (IOException e) {
             /*NOP*/
         }
