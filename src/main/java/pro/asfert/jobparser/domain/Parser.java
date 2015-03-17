@@ -169,27 +169,23 @@ public class Parser {
         Element hr;
         String hrString;
 
-        String username = "spvelichko@mail.ru";
+        String login = "spvelichko@mail.ru";
         String password = "rfcgth18";
 
         try {
-            /*doc = Jsoup
-                    .connect(url)
-                    .header("Authorization", "Basic " + base64login)
-                    .get();*/
-
-            Response res = Jsoup.connect("http://www.rabota66.ru/login")
-                    .data("login", username, "password", password)
+            /*Response res = Jsoup
+                    .connect("http://www.rabota66.ru/login")
+                    .data("LoginForm[login]", login, "LoginForm[password]", password)
                     .method(Method.POST)
-                    .execute();
+                    .execute();*/
 
-            doc2 = res.parse();
+            /*doc2 = res.parse();
             String sessionId = res.cookie("c98ef47ea9405440a4c74543704ba279");
-            String abc = sessionId;
-            Map<String, String> loginCookies = res.cookies();
+            String abc = sessionId;*/
+            /*//Map<String, String> loginCookies = res.cookies();*/
 
             doc = Jsoup.connect(url)
-                    .cookies(loginCookies)
+                    .cookie("c98ef47ea9405440a4c74543704ba279", "82823fd5016e185e2c870d8518ecfe49cb10178aa%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22364978%22%3Bi%3A1%3Bs%3A18%3A%22spvelichko%40mail.ru%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D")
                     .get();
 
             vacancy = doc.select("div.title-").first();
@@ -205,7 +201,7 @@ public class Parser {
             educationString = education.select("dd").last().text();
 
             employer = doc.select("div.employer-").first();
-            employerString = employer.select("a").text();
+            employerString = employer.select("a").first().text();
 
             details = doc.select("div.details-").first();
             Elements br = details.select("br");

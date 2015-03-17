@@ -39,7 +39,7 @@ public class LoadingDataBase {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost/vacations" +
-            "?characterEncoding=utf8";;
+            "?characterEncoding=utf8";
             connection = DriverManager.getConnection(url, "root", "123456");
             statement = connection.createStatement();
 
@@ -52,9 +52,10 @@ public class LoadingDataBase {
                 for (Map.Entry<String, String> pair : hashmap.entrySet()) {
                      System.out.println(pair.getKey() + " : " + pair.getValue());
                 }
+
                 String sqlcommand = "INSERT INTO vacations (vacancy, salary, experience, education, employer, details, hr)" +
                         " VALUES (" + "\'" + hashmap.get("vacancy") + "\'" +", "+ "\'" +hashmap.get("salary")+ "\'" +", "+ "\'" +hashmap.get("experience")+ "\'" +", "+ "\'" +hashmap.get("education") + "\'" +", "+
-                        "\'" + hashmap.get("employer") + "\'" +", "+ "\'" + hashmap.get("details") + "\'" + "\'" + hashmap.get("hr") + "\'" +")";
+                        "\'" + hashmap.get("employer") + "\'" +", "+ "\'" + hashmap.get("details") + "\'" +", " + "\'" + hashmap.get("hr") + "\'" +")";
                 statement.executeUpdate(sqlcommand);
 
             }

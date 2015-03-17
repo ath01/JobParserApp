@@ -24,7 +24,7 @@ public class CreateTable {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             //Подключаемся к новосозданной базе. Значение параметров после "?"
-            //ясно из их имен.
+
             String url = "jdbc:mysql://localhost/vacations" +
                     "?characterEncoding=utf8";
             connection = DriverManager.getConnection(url, "root", "123456");
