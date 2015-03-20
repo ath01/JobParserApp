@@ -2,7 +2,9 @@ package pro.asfert.jobparser.dao;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import pro.asfert.jobparser.domain.Parser;
+import sun.jdbc.odbc.ee.ConnectionPool;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 
@@ -11,7 +13,7 @@ import java.util.*;
  */
 public class SelectFrom {
     public static void main(String[] args) {
-        selectFromTable("346 59");
+        selectFromTable("специалист продаж");
     }
 
     private static void printResults(ResultSet rs) throws SQLException {
@@ -45,6 +47,7 @@ public class SelectFrom {
     private static void selectFromTable(String queries) {
 
         Connection connection = null;
+        DataSource dataSource;
         Statement statement = null;
         StringBuilder result = new StringBuilder();
         ArrayList<String> arrayListQueries = new ArrayList<String>();
