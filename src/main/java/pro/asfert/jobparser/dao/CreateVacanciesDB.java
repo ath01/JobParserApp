@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CreateVacationDB {
+public class CreateVacanciesDB {
     //Так мы создаем базу данных:
     private final static String createDatabaseQuery =
-            "CREATE DATABASE vacations CHARACTER SET utf8 COLLATE utf8_general_ci";
+            "CREATE DATABASE Vacancies CHARACTER SET utf8 COLLATE utf8_general_ci";
 
     public static void main(String[] args) {
 

@@ -38,8 +38,8 @@ public class LoadingDataBase {
         Map<String, String> hashmap = new HashMap<String, String>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost/vacations" +
-            "?characterEncoding=utf8";
+            String url = "jdbc:mysql://localhost/Vacancies" +
+                    "?characterEncoding=utf8";
             connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             statement = connection.createStatement();
 
@@ -48,14 +48,14 @@ public class LoadingDataBase {
             /* Реализация логики загрузки данных в БД по каждой вакансии*/
 
             for (String s : DataMap.keySet()) {
-                hashmap =  Parser.getDataForDBbyOneURL(s);
+                hashmap = Parser.getDataForDBbyOneURL(s);
                 for (Map.Entry<String, String> pair : hashmap.entrySet()) {
-                     System.out.println(pair.getKey() + " : " + pair.getValue());
+                    System.out.println(pair.getKey() + " : " + pair.getValue());
                 }
 
-                String sqlcommand = "INSERT INTO vacations (vacancy, salary, experience, education, employer, details, hr)" +
-                        " VALUES (" + "\'" + hashmap.get("vacancy") + "\'" +", "+ "\'" +hashmap.get("salary")+ "\'" +", "+ "\'" +hashmap.get("experience")+ "\'" +", "+ "\'" +hashmap.get("education") + "\'" +", "+
-                        "\'" + hashmap.get("employer") + "\'" +", "+ "\'" + hashmap.get("details") + "\'" +", " + "\'" + hashmap.get("hr") + "\'" +")";
+                String sqlcommand = "INSERT INTO Vacancies (vacancy, salary, experience, education, employer, details, hr)" +
+                        " VALUES (" + "\'" + hashmap.get("vacancy") + "\'" + ", " + "\'" + hashmap.get("salary") + "\'" + ", " + "\'" + hashmap.get("experience") + "\'" + ", " + "\'" + hashmap.get("education") + "\'" + ", " +
+                        "\'" + hashmap.get("employer") + "\'" + ", " + "\'" + hashmap.get("details") + "\'" + ", " + "\'" + hashmap.get("hr") + "\'" + ")";
                 statement.executeUpdate(sqlcommand);
 
             }
@@ -77,7 +77,6 @@ public class LoadingDataBase {
                 }
             }
         }
-
 
 
     }

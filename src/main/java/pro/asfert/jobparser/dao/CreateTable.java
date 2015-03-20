@@ -1,4 +1,5 @@
 package pro.asfert.jobparser.dao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,7 +7,7 @@ import java.sql.Statement;
 
 public class CreateTable {
 
-    private final static String createTableQuery = "CREATE TABLE `vacations` (" +
+    private final static String createTableQuery = "CREATE TABLE `Vacancies` (" +
             "  `id` int(11) NOT NULL auto_increment," +
             "  `vacancy` varchar(500) default NULL," +
             "  `salary` varchar(100) default NULL," +
@@ -25,7 +26,7 @@ public class CreateTable {
             Class.forName("com.mysql.jdbc.Driver");
 
 
-            String url = "jdbc:mysql://localhost/vacations" +
+            String url = "jdbc:mysql://localhost/Vacancies" +
                     "?characterEncoding=utf8";
             connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             statement = connection.createStatement();

@@ -11,12 +11,12 @@ import java.util.*;
  */
 public class SelectFrom {
     public static void main(String[] args) {
-        selectFromTable("специалист продаж");
+        selectFromTable("%%% %%%");
     }
 
     private static void printResults(ResultSet rs) throws SQLException {
         String id, vacancy, salary, experience, education, employer, details, hr;
-        if (!rs.isBeforeFirst() ) {
+        if (!rs.isBeforeFirst()) {
             System.out.println("Нет данных. Введите запрос еше раз.");
         }
         while (rs.next()) {
@@ -48,36 +48,73 @@ public class SelectFrom {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost/vacations" +
+            String url = "jdbc:mysql://localhost/Vacancies" +
                     "?characterEncoding=utf8";
-            connection = DriverManager.getConnection(url, "root", "123456");
+            connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             System.out.println("Connected.");
             statement = connection.createStatement();
-            String[] arrayQueriesTmp = queries.trim().split(" ");
-            if (!arrayQueriesTmp[0].isEmpty()) {
+            String[] arrayQueriesTmp = queries.replaceAll("\\s+", " ").trim().split(" ");
+
                 ArrayList<String> arrayListQueries = new ArrayList<String>();
                 StringBuilder query = new StringBuilder();
                 for (int i = 0; i < arrayQueriesTmp.length; i++) {
                     if (arrayQueriesTmp[i].matches("^[0-9a-zA-Zа-яА-Я]*$")) {
                         StringBuilder request = new StringBuilder();
-                        request.append("\'%").append(arrayQueriesTmp[i]).append("%\'").append(" ");
+                        request.append("%").append(arrayQueriesTmp[i]).append("%");
                         arrayListQueries.add(request.toString());
                     }
                 }
-                query.append("select * FROM vacations WHERE vacancy or details LIKE ");
+                if (arrayListQueries.size() != 0) {
 
-                for (int i = 0; i < arrayListQueries.size(); i++) {
-                    query.append(arrayListQueries.get(i)).append("AND vacancy or details ").append("LIKE ").append(arrayListQueries.get(i));
-                    if (arrayListQueries.size() > 0 && i != arrayListQueries.size()-1) {
-                        query.append("AND ");
+
+                    query.append("SELECT * FROM Vacancies WHERE ");
+
+                    for (int i = 0; i < arrayListQueries.size(); i++) {
+                        if (i > 0 && i < arrayListQueries.size()) {
+                            query.append(" OR ");
+                        }
+                        query.append("vacancy LIKE ").append("\'").append(arrayListQueries.get(i)).append("\'").
+                                append(" OR details LIKE ").append("\'").append(arrayListQueries.get(i)).append("\'");
+                        if (i > 0 && i < arrayListQueries.size() - 1) {
+                            query.append(" OR ");
+                        }
                     }
+                    query.append(" OR vacancy LIKE \'");
+                    for (int i = 0; i < arrayListQueries.size(); i++) {
+                        query.append(arrayListQueries.get(i));
+                        if (i < arrayListQueries.size() - 1) {
+                            query.append(" ");
+                        }
+                        if (i == arrayListQueries.size() - 1) {
+                            query.append("\'");
+                        }
+                    }
+                    query.append(" OR details LIKE \'");
+                    for (int i = 0; i < arrayListQueries.size(); i++) {
+                        query.append(arrayListQueries.get(i));
+                        if (i < arrayListQueries.size() - 1) {
+                            query.append(" ");
+                        }
+                        if (i == arrayListQueries.size() - 1) {
+                            query.append("\'");
+                        }
+                    }
+                    //вывод количества элементов для себя
+                    String count = "SELECT COUNT(*) FROM Vacancies";
+                    ResultSet resultSet = statement.executeQuery(count);
+                    while (resultSet.next()) {
+                        System.out.println("Количество строк в базе: " + resultSet.getInt(1));
+                    }
+
+                    ResultSet rs = statement.executeQuery(query.toString());
+                    printResults(rs);
+
+                } else {
+                    System.out.println("По вашему запросу ничего не найдено");
                 }
 
-                ResultSet rs = statement.executeQuery(query.toString());
-                printResults(rs);
-            } else {
-                System.out.println("Некорректный запрос. Введите запрос еще раз");
-            }
+
+
             System.out.println("Disconnected");
 
 
