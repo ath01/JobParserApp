@@ -14,9 +14,11 @@ public class SelectFrom {
         selectFromTable("специалист продаж");
     }
 
-    public static void printResults(ResultSet rs) throws SQLException {
+    private static void printResults(ResultSet rs) throws SQLException {
         String id, vacancy, salary, experience, education, employer, details, hr;
-
+        if (!rs.isBeforeFirst() ) {
+            System.out.println("Нет данных. Введите запрос еше раз.");
+        }
         while (rs.next()) {
             id = rs.getString("id");
             vacancy = rs.getString("vacancy");
@@ -39,7 +41,7 @@ public class SelectFrom {
         }
     }
 
-    public static void selectFromTable(String queries) {
+    private static void selectFromTable(String queries) {
 
         Connection connection = null;
         Statement statement = null;
@@ -52,26 +54,30 @@ public class SelectFrom {
             System.out.println("Connected.");
             statement = connection.createStatement();
             String[] arrayQueriesTmp = queries.trim().split(" ");
-            ArrayList<String> arrayListQueries = new ArrayList<String>();
-            StringBuilder query = new StringBuilder();
-            for (int i = 0; i < arrayQueriesTmp.length; i++) {
-                if (arrayQueriesTmp[i].matches("^[0-9a-zA-Zа-яА-Я]*$")) {
-                    StringBuilder request = new StringBuilder();
-                    request.append("\'%").append(arrayQueriesTmp[i]).append("%\'").append(" ");
-                    arrayListQueries.add(request.toString());
+            if (!arrayQueriesTmp[0].isEmpty()) {
+                ArrayList<String> arrayListQueries = new ArrayList<String>();
+                StringBuilder query = new StringBuilder();
+                for (int i = 0; i < arrayQueriesTmp.length; i++) {
+                    if (arrayQueriesTmp[i].matches("^[0-9a-zA-Zа-яА-Я]*$")) {
+                        StringBuilder request = new StringBuilder();
+                        request.append("\'%").append(arrayQueriesTmp[i]).append("%\'").append(" ");
+                        arrayListQueries.add(request.toString());
+                    }
                 }
-            }
-            query.append("select * FROM vacations WHERE vacancy or details LIKE ");
+                query.append("select * FROM vacations WHERE vacancy or details LIKE ");
 
-            for (int i = 0; i < arrayListQueries.size(); i++) {
-                query.append(arrayListQueries.get(i)).append("AND vacancy or details ").append("LIKE ").append(arrayListQueries.get(i));
-                if (arrayListQueries.size() > 0 && i != arrayListQueries.size()-1) {
-                    query.append("AND ");
+                for (int i = 0; i < arrayListQueries.size(); i++) {
+                    query.append(arrayListQueries.get(i)).append("AND vacancy or details ").append("LIKE ").append(arrayListQueries.get(i));
+                    if (arrayListQueries.size() > 0 && i != arrayListQueries.size()-1) {
+                        query.append("AND ");
+                    }
                 }
-            }
 
-            ResultSet rs = statement.executeQuery(query.toString());
-            printResults(rs);
+                ResultSet rs = statement.executeQuery(query.toString());
+                printResults(rs);
+            } else {
+                System.out.println("Некорректный запрос. Введите запрос еще раз");
+            }
             System.out.println("Disconnected");
 
 

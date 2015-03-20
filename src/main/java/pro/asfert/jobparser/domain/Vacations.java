@@ -16,12 +16,6 @@ public class Vacations {
     @Column(name = "id")
     @GeneratedValue
     private Integer id;
-/*
-    @Column (name = "category")
-    private String category;
-
-    @Column (name = "subcategory")
-    private String subcategory;*/
 
     @Column (name = "vacancy")
     private String vacancy;
@@ -40,6 +34,9 @@ public class Vacations {
 
     @Column (name = "details")
     private String details;
+
+    @Column (name = "hr")
+    private String hr;
 
 
 

@@ -17,7 +17,7 @@ public class CreateVacationDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost/mysql";
-            connection = DriverManager.getConnection(url, "root", "123456");
+            connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             statement = connection.createStatement();
             statement.executeUpdate(createDatabaseQuery);
         } catch (Exception e) {

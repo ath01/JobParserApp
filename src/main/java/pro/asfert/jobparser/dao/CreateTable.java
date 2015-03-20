@@ -23,11 +23,11 @@ public class CreateTable {
         Statement statement = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            //Подключаемся к новосозданной базе. Значение параметров после "?"
+
 
             String url = "jdbc:mysql://localhost/vacations" +
                     "?characterEncoding=utf8";
-            connection = DriverManager.getConnection(url, "root", "123456");
+            connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             statement = connection.createStatement();
             statement.executeUpdate(createTableQuery);
         } catch (Exception e) {

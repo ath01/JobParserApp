@@ -6,7 +6,7 @@
 	<display-name>Spring MVC Application</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/pages/application-context.xml</param-value>
+        <param-value>WEB-INF/application-context.xml</param-value>
     </context-param>
 
     <listener>
