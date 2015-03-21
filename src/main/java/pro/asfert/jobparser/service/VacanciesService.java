@@ -1,7 +1,7 @@
 package pro.asfert.jobparser.service;
 
 public interface VacanciesService {
-    String LoadDataBase();
+    void LoadDataBase();
 
-    void FindVacancy(String query);
+    void FindVacancy(String queries);
 }

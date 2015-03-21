@@ -1,10 +1,8 @@
 package pro.asfert.jobparser.dao;
 
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pro.asfert.jobparser.service.VacanciesServiceImpl;
 
 @Repository
 public class VacanciesDAOImpl implements VacanciesDAO {
@@ -12,14 +10,15 @@ public class VacanciesDAOImpl implements VacanciesDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-
-    @Override
-    public void LoadDataBase() {
-        sessionFactory.getCurrentSession().createQuery(new VacanciesServiceImpl().LoadDataBase());
+    public void LoadDataBase(String query) {
+        sessionFactory.getCurrentSession().createQuery(query);
     }
 
-    @Override
-    public void FindVacancy(String query) {
-        sessionFactory.getCurrentSession().createQuery(query);
+    public void FindVacancy(String queries) {
+        if (queries.contains("По вашему запросу")) {
+            System.out.println(queries);
+        } else {
+            sessionFactory.getCurrentSession().createQuery(queries);
+        }
     }
 }

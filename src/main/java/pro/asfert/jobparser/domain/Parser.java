@@ -187,7 +187,6 @@ public class Parser {
             salary = doc.select("b.salary-").first();
             salaryString = salary.text();
 
-
             experience = doc.select("div.vvloa-box").first();
             if (experience.select("dt").first().text().equals("Опыт")) {
                 experienceString = experience.select("dd").first().text();
@@ -204,8 +203,6 @@ public class Parser {
 
             employer = doc.select("div.employer-").first();
             employerString = employer.select("a").first().text();
-
-
 
             details = doc.select("div.details-").first();
             Elements br = details.select("br");
@@ -227,16 +224,6 @@ public class Parser {
         } catch (IOException e) {
             /*NOP*/
         }
-
-
         return getDataForDBbyOneURL;
     }
-
-    /*public static void main(String[] args) {
-        String url = "http://www.rabota66.ru/vacancy/256509";
-        Map<String, String> getDataForDBbyOneURL = getDataForDBbyOneURL(url);
-    }*/
-
-
-
 }
