@@ -8,17 +8,15 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 
-/**
- * Created by darkwawe on 14.03.2015.
- */
+
 public class SelectFrom {
     public static void main(String[] args) {
-        selectFromTable("специалист продаж");
+        selectFromTable("андер");
     }
 
     private static void printResults(ResultSet rs) throws SQLException {
-        String id, vacancy, salary, experience, education, employer, details, hr;
-        /*if (!rs.isBeforeFirst()) {
+        String id, vacancy, salary, experience, education, employer, details, hr, url;
+       /* if (!rs.isBeforeFirst()) {
             System.out.println("По вашему запросу ничего не найдено");
         }*/
         while (rs.next()) {
@@ -30,6 +28,7 @@ public class SelectFrom {
             employer = rs.getString("employer");
             details = rs.getString("details");
             hr = rs.getString("hr");
+            url = rs.getString("url");
             System.out.println("******************************");
             System.out.println("id: " + id);
             System.out.println("vacancy: " + vacancy);
@@ -39,6 +38,7 @@ public class SelectFrom {
             System.out.println("employer: " + employer);
             System.out.println("details: " + details);
             System.out.println("hr: " + hr);
+            System.out.println("url: " + url);
             System.out.println("******************************");
         }
     }
@@ -79,7 +79,7 @@ public class SelectFrom {
 
             if (arrayListQueries.size() != 0) {
                 query.append("SELECT * FROM Vacancies WHERE ");
-                for (int i = 0; i < arrayListQueries.size(); i++) {
+                /*for (int i = 0; i < arrayListQueries.size(); i++) {
                     if (i > 0 && i < arrayListQueries.size()) {
                         query.append(" OR ");
                     }
@@ -88,9 +88,9 @@ public class SelectFrom {
                     if (i > 0 && i < arrayListQueries.size() - 1) {
                         query.append(" OR ");
                     }
-                }
-                if (arrayListQueries.size() > 1) {
-                    query.append(" OR vacancy LIKE \'");
+                }*/
+                /*if (arrayListQueries.size() > 1) {*/
+                    query.append("vacancy LIKE \'");
                     for (int i = 0; i < arrayListQueries.size(); i++) {
                         query.append(arrayListQueries.get(i));
                         if (i < arrayListQueries.size() - 1) {
@@ -110,7 +110,7 @@ public class SelectFrom {
                             query.append("\'");
                         }
                     }
-                }
+                /*}*/
                 //вывод количества элементов для себя
                 String count = "SELECT COUNT(*) FROM Vacancies";
                 ResultSet resultSet = statement.executeQuery(count);

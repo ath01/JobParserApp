@@ -3,9 +3,6 @@ package pro.asfert.jobparser.domain;
 import java.util.TreeMap;
 import java.util.*;
 
-/**
- * Created by darkwawe on 07.03.2015.
- */
 public class Test {
     public static void main(String[] args) {
         System.out.println("*****************************************************");

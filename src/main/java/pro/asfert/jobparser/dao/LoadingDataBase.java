@@ -9,9 +9,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by darkwawe on 10.03.2015.
- */
+
 public class LoadingDataBase {
     public static void main(String[] args) {
 
@@ -53,9 +51,9 @@ public class LoadingDataBase {
                     System.out.println(pair.getKey() + " : " + pair.getValue());
                 }
 
-                String sqlcommand = "INSERT INTO Vacancies (vacancy, salary, experience, education, employer, details, hr)" +
+                String sqlcommand = "INSERT INTO Vacancies (vacancy, salary, experience, education, employer, details, hr, url)" +
                         " VALUES (" + "\'" + hashmap.get("vacancy") + "\'" + ", " + "\'" + hashmap.get("salary") + "\'" + ", " + "\'" + hashmap.get("experience") + "\'" + ", " + "\'" + hashmap.get("education") + "\'" + ", " +
-                        "\'" + hashmap.get("employer") + "\'" + ", " + "\'" + hashmap.get("details") + "\'" + ", " + "\'" + hashmap.get("hr") + "\'" + ")";
+                        "\'" + hashmap.get("employer") + "\'" + ", " + "\'" + hashmap.get("details") + "\'" + ", " + "\'" + hashmap.get("hr") + "\'"+ ", " + "\'" + hashmap.get("url") + "\'" + ")";
                 statement.executeUpdate(sqlcommand);
 
             }

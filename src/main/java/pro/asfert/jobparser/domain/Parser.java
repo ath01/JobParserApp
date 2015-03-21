@@ -9,10 +9,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.*;
 
-
-/**
- * Created by darkwawe on 06.03.2015.
- */
 public class Parser {
     static Map<String, String> categoryMap = new TreeMap<String, String>();
     static Map<String, String> subCategoryMap = new TreeMap<String, String>();
@@ -169,9 +165,6 @@ public class Parser {
         Element hr;
         String hrString;
 
-        String login = "spvelichko@mail.ru";
-        String password = "rfcgth18";
-
         try {
             /*Response res = Jsoup
                     .connect("http://www.rabota66.ru/login")
@@ -194,14 +187,25 @@ public class Parser {
             salary = doc.select("b.salary-").first();
             salaryString = salary.text();
 
+
             experience = doc.select("div.vvloa-box").first();
-            experienceString = experience.select("dd").first().text();
+            if (experience.select("dt").first().text().equals("Опыт")) {
+                experienceString = experience.select("dd").first().text();
+            } else {
+                experienceString = "Требуемый опыт не указан";
+            }
 
             education = doc.select("div.vvloa-box").first();
-            educationString = education.select("dd").last().text();
+            if (education.select("dt").last().text().equals("Образование")) {
+                educationString = education.select("dd").last().text();
+            } else {
+                educationString = "Требуемый уровень образования не указан";
+            }
 
             employer = doc.select("div.employer-").first();
             employerString = employer.select("a").first().text();
+
+
 
             details = doc.select("div.details-").first();
             Elements br = details.select("br");
@@ -219,6 +223,7 @@ public class Parser {
             getDataForDBbyOneURL.put("employer", employerString.trim());
             getDataForDBbyOneURL.put("details", detailsString.trim());
             getDataForDBbyOneURL.put("hr", hrString.trim());
+            getDataForDBbyOneURL.put("url", url);
         } catch (IOException e) {
             /*NOP*/
         }
