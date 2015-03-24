@@ -1,4 +1,4 @@
-package pro.asfert.jobparser.dao;
+package pro.asfert.jobparser.dbCommands;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

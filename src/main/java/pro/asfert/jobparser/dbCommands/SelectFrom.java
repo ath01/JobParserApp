@@ -1,4 +1,4 @@
-package pro.asfert.jobparser.dao;
+package pro.asfert.jobparser.dbCommands;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import pro.asfert.jobparser.domain.Parser;
