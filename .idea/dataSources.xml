@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3703149356">
+    <data-source source="LOCAL" name="jdbc" uuid="c90113b7-a2ad-45b3-a338-eeb8792d8bdd">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/VacanciesApp</jdbc-url>
+      <driver-properties>
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+      <libraries>
+        <library>
+          <url>jar://$PROJECT_DIR$/lib/mysql_connector_java_5.1.34_bin.jar!/</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="dataSource" uuid="4915644f-50c2-40a7-82e8-2deb62490434">
+      <synchronize>true</synchronize>
+      <jdbc-driver>Gthbvtnh95</jdbc-driver>
+      <jdbc-url>com.mysql.jdbc.Driver</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

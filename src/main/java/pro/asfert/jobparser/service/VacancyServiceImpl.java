@@ -1,25 +1,26 @@
 package pro.asfert.jobparser.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pro.asfert.jobparser.dao.VacanciesDAO;
+import pro.asfert.jobparser.dao.VacancyDAO;
 import pro.asfert.jobparser.domain.Parser;
+import pro.asfert.jobparser.domain.Vacancy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class VacanciesServiceImpl implements VacanciesService {
+public class VacancyServiceImpl implements VacancyService {
+
 
     @Autowired
-    private VacanciesDAO vacanciesDAO;
-/*
-    public static void main(String[] args) {
-        VacanciesServiceImpl vacanciesService = new VacanciesServiceImpl();
-        vacanciesService.LoadDataBase();
-    }*/
+    private VacancyDAO VacancyDAO;
 
     @Transactional
     public void LoadDataBase() {
@@ -37,13 +38,13 @@ public class VacanciesServiceImpl implements VacanciesService {
                     " VALUES (" + "\'" + hashmap.get("vacancy") + "\'" + ", " + "\'" + hashmap.get("salary") + "\'" + ", " + "\'" + hashmap.get("experience") + "\'" + ", " + "\'" + hashmap.get("education") + "\'" + ", " +
                     "\'" + hashmap.get("employer") + "\'" + ", " + "\'" + hashmap.get("details") + "\'" + ", " + "\'" + hashmap.get("hr") + "\'"+ ", " + "\'" + hashmap.get("url") + "\'" + ")";
 
-            vacanciesDAO.LoadDataBase(query);
+            VacancyDAO.LoadDataBase();
         }
 
     }
 
     @Transactional
-    public void FindVacancy(String queries) {
+    public List <String> FindVacancy(String queries) {
 
         StringBuilder result = new StringBuilder();
         ArrayList<String> arrayListQueries = new ArrayList<String>();
@@ -53,20 +54,22 @@ public class VacanciesServiceImpl implements VacanciesService {
         String[] arrayQueriesTmp = queries.replaceAll("\\s+", " ").trim().split(" ");
 
         for (int i = 0; i < arrayQueriesTmp.length; i++) {
-            if (arrayQueriesTmp[i].matches("^[0-9a-zA-Zа-яА-Я]*$")) {
+            if (!arrayQueriesTmp[i].matches("^[0-9a-zA-Zа-яА-Я]*$")) {
+                result.append("По вашему запросу \"");
+                for (int k = 0; i < arrayQueriesTmp.length; k++) {
+                    result.append(arrayQueriesTmp[k]);
+                    if (i < arrayQueriesTmp.length - 1) {
+                        result.append(" ");
+                    }
+                }
+                result.append("\" ничего не найдено");
+                break;
+            }
                 StringBuilder request = new StringBuilder();
                 request.append("%").append(arrayQueriesTmp[i]).append("%");
                 arrayListQueries.add(request.toString());
-            }
+
         }
-        result.append("По вашему запросу \"");
-        for (int i = 0; i < arrayQueriesTmp.length; i++) {
-            result.append(arrayQueriesTmp[i]);
-            if (i < arrayQueriesTmp.length - 1) {
-                result.append(" ");
-            }
-        }
-        result.append("\" ничего не найдено");
 
         if (arrayListQueries.size() != 0) {
             query.append("SELECT * FROM Vacancies WHERE ");
@@ -92,8 +95,23 @@ public class VacanciesServiceImpl implements VacanciesService {
             }
             sqlQuery = query.toString();
         } else {
-            sqlQuery = "";
+            sqlQuery = result.toString();
         }
-        vacanciesDAO.FindVacancy(queries);
+        return VacancyDAO.FindVacancy(sqlQuery);
+    }
+
+    @Transactional
+    public void addVacancy(Vacancy vacancy) {
+        VacancyDAO.addVacancy(vacancy);
+    }
+
+    @Transactional
+    public List<Vacancy> listVacancy() {
+        return VacancyDAO.listVacancy();
+    }
+
+    @Transactional
+    public void removeVacancy(Integer id) {
+        VacancyDAO.removeVacancy(id);
     }
 }

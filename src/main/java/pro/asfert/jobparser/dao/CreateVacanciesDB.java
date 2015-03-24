@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class CreateVacanciesDB {
     //Так мы создаем базу данных:
     private final static String createDatabaseQuery =
-            "CREATE DATABASE Vacancies CHARACTER SET utf8 COLLATE utf8_general_ci";
+            "CREATE DATABASE VacanciesApp CHARACTER SET utf8 COLLATE utf8_general_ci";
 
     public static void main(String[] args) {
 

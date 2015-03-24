@@ -25,9 +25,7 @@ public class CreateTable {
         Statement statement = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-
-
-            String url = "jdbc:mysql://localhost/Vacancies" +
+            String url = "jdbc:mysql://localhost/VacanciesApp" +
                     "?characterEncoding=utf8";
             connection = DriverManager.getConnection(url, "root", "Gthbvtnh95");
             statement = connection.createStatement();

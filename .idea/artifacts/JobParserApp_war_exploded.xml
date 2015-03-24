@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" build-on-make="true" name="JobParserApp:war exploded">
-    <output-path>$PROJECT_DIR$/target/JobParserApp</output-path>
+    <output-path>$PROJECT_DIR$/target/Job Parser App</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -36,6 +36,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

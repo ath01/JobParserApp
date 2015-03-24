@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Vacancies")
-public class Vacancies {
-    public Vacancies() {
+public class Vacancy {
+    public Vacancy() {
     }
 
     @Id

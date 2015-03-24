@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" build-on-make="true" name="JobParserApp:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="JobParserApp.war">
+    <root id="archive" name="Job Parser App.war">
       <element id="artifact" artifact-name="JobParserApp:war exploded" />
     </root>
   </artifact>

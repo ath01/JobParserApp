@@ -208,7 +208,7 @@ public class Parser {
             Elements br = details.select("br");
             detailsString+=details.select("h2").first().nextSibling().toString();
             for (int i = 0; i < br.size(); i++) {
-                        detailsString += br.get(i).nextSibling().toString();
+                detailsString += br.get(i).nextSibling().toString();
             }
             hr = doc.select("div.vvloa-box").first().nextElementSibling();
             hrString = hr.text();
